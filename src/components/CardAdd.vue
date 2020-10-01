@@ -34,7 +34,13 @@ export default {
       if (this.isEditing) {
         classList.push("active");
       }
+      if (this.bodyExists) {
+        classList.push("addable");
+      }
       return classList;
+    },
+    bodyExists() {
+      return this.body.length > 0;
     },
   },
   methods: {
