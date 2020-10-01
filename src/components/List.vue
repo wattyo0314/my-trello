@@ -11,7 +11,7 @@
 <script>
 import CardAdd from './CardAdd'
 export default {
-  comments: {
+  components: {
     CardAdd
   },
   props: {

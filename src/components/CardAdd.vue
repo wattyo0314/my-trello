@@ -1,14 +1,15 @@
 <template>
-  <form class="addcard" @submit.prevent="addCardToList">
-    <input v-model="body"
-           type="text"
-           class="text-input"
-           placeholder="Add new card"
+  <form :class="classList" @submit.prevent="addCardToList">
+    <input
+      v-model="body"
+      type="text"
+      class="text-input"
+      placeholder="Add new Card"
+      @focusin="startEditing"
+      @focusout="finishEditing"
     />
-    <button type="submit"
-            class="add-button"
-            >
-      Add
+    <button type="submit" class="add-button" v-if="isEditing || titleExists">
+      add
     </button>
   </form>
 </template>
@@ -18,41 +19,38 @@ export default {
   props: {
     listIndex: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data: function() {
     return {
-      body: '',
+      body: "",
       isEditing: false,
-    }
+    };
   },
   computed: {
     classList() {
-      const classList = ['addcard']
-      if(this.isEditing) {
-        classList.push('active')
-      }
-      if(this.bodyExists) {
-        classList.push('addable')
+      const classList = ["addcard"];
+      if (this.isEditing) {
+        classList.push("active");
       }
       return classList;
     },
-    bodyExists() {
-      return this.body.length > 0
-    }
   },
   methods: {
+    addCardToList: function() {
+      this.$store.dispatch("addCardToList", {
+        body: this.body,
+        listIndex: this.listIndex,
+      });
+      this.body = "";
+    },
     startEditing: function() {
-      this.isEditing = true
+      this.isEditing = true;
     },
     finishEditing: function() {
-      this.isEditing = false
+      this.isEditing = false;
     },
-    addCardToList: function() {
-      this.$store.dispatch('addCardToList', { body: this.body, listIndex: this.listIndex })
-      this.body = ''
-    }
-  }
-}
+  },
+};
 </script>
