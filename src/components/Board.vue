@@ -2,12 +2,13 @@
   <div>
     <header>my-trello</header>
     <main>
-      <p class="info-line">ALL: 0 tasks</p>
+      <p class="info-line">ALL: {{ totalCardCount }} tasks</p>
       <div class="list-index">
         <list
           v-for="(item, index) in lists"
           :key="item.id"
           :title="item.title"
+          :cards="item.cards"
           :listIndex="index"
         ></list>
         <list-add />

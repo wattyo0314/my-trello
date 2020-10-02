@@ -8,7 +8,7 @@
       @focusin="startEditing"
       @focusout="finishEditing"
     />
-    <button type="submit" class="add-button" v-if="isEditing || titleExists">
+    <button type="submit" class="add-button" v-if="isEditing || bodyExists">
       add
     </button>
   </form>
@@ -22,7 +22,7 @@ export default {
       required: true,
     },
   },
-  data: function() {
+  data: function () {
     return {
       body: "",
       isEditing: false,
@@ -44,17 +44,17 @@ export default {
     },
   },
   methods: {
-    addCardToList: function() {
+    addCardToList: function () {
       this.$store.dispatch("addCardToList", {
         body: this.body,
         listIndex: this.listIndex,
       });
       this.body = "";
     },
-    startEditing: function() {
+    startEditing: function () {
       this.isEditing = true;
     },
-    finishEditing: function() {
+    finishEditing: function () {
       this.isEditing = false;
     },
   },
